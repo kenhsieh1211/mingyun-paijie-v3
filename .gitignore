@@ -1,0 +1,18 @@
+# Backup and internal docs
+*_backup_*.html
+*_v1_*.html
+*_v2_*.html
+*_v3_backup_*.html
+*_交接文件.md
+命運牌界.html
+
+# Old deploy script
+deploy_v2.bat
+
+# Portrait archive (do not upload)
+mingyun_paijie_character_portraits_named/_archive/
+
+# System files
+.DS_Store
+Thumbs.db
+*.tmp
