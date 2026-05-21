@@ -5229,7 +5229,7 @@ let _galleryIdx = 0;
 function showGallery() {
   const listEl = document.getElementById('gallery-list');
   listEl.innerHTML = '';
-  OPPONENTS.forEach((opp, i) => {
+  G.opponents.forEach((opp, i) => {
     const card = document.createElement('div');
     card.className = 'gallery-card';
     card.onclick = () => openGalleryDetail(i);
@@ -5265,7 +5265,7 @@ let _galleryPortraitLayer = 0; // 目前顯示的立繪層（0=原始 1=被理�
 function openGalleryDetail(idx) {
   _galleryIdx = idx;
   // 預設顯示最高解鎖立繪
-  _galleryPortraitLayer = getMaxPortraitLayer(OPPONENTS[idx].beaten);
+  _galleryPortraitLayer = getMaxPortraitLayer(G.opponents[idx].beaten);
   renderGalleryDetail();
   document.getElementById('gallery-detail-overlay').classList.add('show');
 }
@@ -5276,7 +5276,7 @@ function switchGalleryPortrait(layer) {
 }
 
 function renderGalleryDetail() {
-  const opp = OPPONENTS[_galleryIdx];
+  const opp = G.opponents[_galleryIdx];
   const maxLayer = getMaxPortraitLayer(opp.beaten);
   // 確保 layer 不超過已解鎖上限
   if (_galleryPortraitLayer > maxLayer) _galleryPortraitLayer = maxLayer;
@@ -5333,10 +5333,10 @@ function renderGalleryDetail() {
   // ── 角色導航小圓點 ──
   const dotsEl = document.getElementById('gallery-dot-nav');
   dotsEl.innerHTML = '';
-  OPPONENTS.forEach((_, i) => {
+  G.opponents.forEach((_, i) => {
     const dot = document.createElement('div');
     dot.className = 'gallery-dot' + (i === _galleryIdx ? ' active' : '');
-    dot.onclick = () => { _galleryIdx = i; _galleryPortraitLayer = getMaxPortraitLayer(OPPONENTS[i].beaten); renderGalleryDetail(); };
+    dot.onclick = () => { _galleryIdx = i; _galleryPortraitLayer = getMaxPortraitLayer(G.opponents[i].beaten); renderGalleryDetail(); };
     dotsEl.appendChild(dot);
   });
 }
@@ -5346,7 +5346,8 @@ function closeGalleryDetail() {
 }
 
 function galleryNav(dir) {
-  _galleryIdx = (_galleryIdx + dir + OPPONENTS.length) % OPPONENTS.length;
+  _galleryIdx = (_galleryIdx + dir + G.opponents.length) % G.opponents.length;
+  _galleryPortraitLayer = getMaxPortraitLayer(G.opponents[_galleryIdx].beaten);
   renderGalleryDetail();
 }
 
@@ -6266,7 +6267,6 @@ function showConfirm(msg, cb) {
 function closeConfirm() {
   document.getElementById('confirm-overlay').classList.remove('show');
 }
-
 </script>
 </body>
 </html>
